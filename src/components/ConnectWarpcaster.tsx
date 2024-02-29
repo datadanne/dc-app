@@ -1,21 +1,16 @@
 import React, { useEffect } from "react";
 
-
 import QRCodeSVG from "qrcode.react";
-import { Anchor } from "react95";
 import { poll_signed_key_request } from "../utils/warpcast";
 import { setUserFid } from "../redux/authSlice";
 import { useDispatch } from "react-redux";
-import { Col, Grid, Row } from "react-flexbox-grid";
-
 
 const POLLING_INTERVAL_MS = 2000;
 
-
 export default function ConnectWarpcaster({
-  signedKeyResponse
-} : {
-  signedKeyResponse: SignedKeyRequestResponse
+  signedKeyResponse,
+}: {
+  signedKeyResponse: SignedKeyRequestResponse;
 }) {
   const dispatch = useDispatch();
 
@@ -32,40 +27,33 @@ export default function ConnectWarpcaster({
   }, [signedKeyResponse]);
 
   return (
-    <Grid fluid>
-      <Row>
-        <Col>
-          <p>
-            Hey! 33bits is currently exclusive to Farcaster accounts with FID ≤ 20001. Sign in with your Farcaster account to get started. Click on QR code or scan it with your mobile device.
-          </p>
-        </Col>
-      </Row>
-
-      <Row className="py-3 d-flex justify-content-center">
-        <Col>
-          <a
-            href={signedKeyResponse.deeplinkUrl}
-            style={{
-              WebkitTouchCallout: "none",
-              WebkitUserSelect: "none",
-              KhtmlUserSelect: "none",
-              MozUserSelect: "none",
-              msUserSelect: "none",
-              userSelect: "none"
-            }}
-          >
-            <QRCodeSVG value={signedKeyResponse.deeplinkUrl} />
-          </a>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-          <p>
-            Your FID is not stored or sent anywhere. It is only used for generating zero-knowledge proofs.
-          </p>
-        </Col>
-      </Row>
-    </Grid>
+    <div className="flex flex-col items-center w-80 gap-4">
+      <p className="w-full">
+        $DEGEN confessions is only available to Farcaster users with a connected
+        address that holds at least{" "}
+        <span className="text-degen">3M $DEGEN</span>.
+      </p>
+      <p>
+        Sign in with your Farcaster account to get started. Click on QR code or
+        scan it with your mobile device.
+      </p>
+      <a
+        href={signedKeyResponse.deeplinkUrl}
+        style={{
+          WebkitTouchCallout: "none",
+          WebkitUserSelect: "none",
+          KhtmlUserSelect: "none",
+          MozUserSelect: "none",
+          msUserSelect: "none",
+          userSelect: "none",
+        }}
+      >
+        <QRCodeSVG value={signedKeyResponse.deeplinkUrl} />
+      </a>
+      <p className="w-full">
+        Your FID is not stored or sent anywhere. It is only used for generating
+        zero-knowledge proofs.
+      </p>
+    </div>
   );
 }

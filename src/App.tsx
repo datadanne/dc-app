@@ -1,91 +1,27 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from "react";
 
-import { Button, Monitor, Tab, TabBody, Tabs, Window, WindowContent, WindowHeader } from 'react95';
-
-import Cast from './pages/Cast';
-import Reply from './pages/Reply';
-import FAQ from './pages/FAQ';
-import Settings from './pages/Settings';
-import { Verify } from './pages/Verify';
-
-import { Grid, Row, Col } from 'react-flexbox-grid';
-
+import Cast from "./pages/Cast";
+import Settings from "./pages/Settings";
 
 export default function App() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const maintenance = import.meta.env.VITE_MAINTENANCE_MODE;
-  const activeTab = location.pathname.replace('/', '');
+  const [showSettings, setShowSettings] = useState(false);
 
   return (
-    <Grid fluid>
-      <Row className='py-5'>
-        <Col
-          xs={12}
-          xsOffset={0}
-          sm={8}
-          smOffset={2}
-          lg={4}
-          lgOffset={4}
-          md={8}
-          mdOffset={2}
-        >
-          <div style={{ position: 'relative' }}>
-            <Window className='window' style={{ width: '100%', zIndex: 1 }}>
-              <WindowHeader>
-                <span>33bits.exe</span>
-              </WindowHeader>
-
-              <WindowContent>
-                {
-                  maintenance && (
-                    <div style={{ textAlign: 'center' }}>
-                      <Monitor backgroundStyles={{ background: 'blue' }} ></Monitor>
-                      <p className='mt-5'>
-                        33bits is currently under maintenance, come back later.
-                      </p>
-                    </div>
-                  )
-                }
-
-                {
-                  !maintenance && (
-                    <>
-                      <Tabs value={activeTab} onChange={(page) => navigate('/' + page)}>
-                        <Tab value={''}>Cast</Tab>
-                        <Tab value={'reply'}>Reply</Tab>
-                        <Tab value={'settings'}>Settings</Tab>
-                        <Tab value={'verify'}>Verify</Tab>
-                        <Tab value={'faq'}>FAQ</Tab>
-                      </Tabs>
-        
-                      <TabBody>
-                        <div style={{ display: activeTab === '' ? 'block' : 'none' }}>
-                          <Cast />
-                        </div>
-                        <div style={{ display: activeTab === 'reply' ? 'block' : 'none' }}>
-                          <Reply />
-                        </div>
-                        <div style={{ display: activeTab === 'settings' ? 'block' : 'none' }}>
-                          <Settings />
-                        </div>
-                        <div style={{ display: activeTab === 'verify' ? 'block' : 'none' }}>
-                          <Verify />
-                        </div>
-                        <div style={{ display: activeTab === 'faq' ? 'block' : 'none' }}>
-                          <FAQ />
-                        </div>
-                      </TabBody>
-                    </>
-                  )
-                }
-              </WindowContent>
-            </Window>
+    <div className="bg-black text-main min-h-screen">
+      <header className="sticky top-0 w-full p-4 border-b border-[#ccc]/[0.1337] bg-black">
+        <div className="flex flex-row justify-between items-center max-w-screen-2xl mx-auto">
+          <div className="flex gap-4 items-center">
+            <img src="https://www.degen.tips/logo_light.svg" width="30" />
+            <h3>$DEGEN confessions</h3>
           </div>
-        </Col>
-      </Row>
-    </Grid>
+          <button onClick={() => setShowSettings(true)}>Settings</button>
+        </div>
+      </header>
+      <main className="flex flex-col items-center p-8 pt-10 md:p-24 md:pt-36 gap-8 lg:gap-12 text-center">
+        <Cast />
+
+        {showSettings && <Settings onClose={() => setShowSettings(false)} />}
+      </main>
+    </div>
   );
-};
+}

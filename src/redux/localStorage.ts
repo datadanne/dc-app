@@ -1,4 +1,4 @@
-const STATE_KEY = '33BITS';
+const STATE_KEY = 'DEGEN_CONFESSIONS';
 
 
 export const loadState = () => {

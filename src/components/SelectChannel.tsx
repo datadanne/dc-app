@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDebounce, useDebouncedCallback } from 'use-debounce';
 
-import { Avatar, Button, ScrollView, Table, TableBody, TableDataCell, TableHead, TableHeadCell, TableRow, TextInput, Window, WindowContent, WindowHeader } from 'react95';
 import Loader from "./Loader";
 import axios from "axios";
 
@@ -51,59 +50,59 @@ export default function SelectChannel({
   }, []);
 
   const channelsRows =
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableHeadCell disabled>Channel</TableHeadCell>
-          <TableHeadCell disabled>Casts</TableHeadCell>
-        </TableRow>
-      </TableHead>
+    <table>
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Casts</th>
+        </tr>
+      </thead>
 
-      <TableBody>
+      <tbody>
         {
           filteredChannels.map((channel) => {
             return (
-              <TableRow key={channel.channel.id} onClick={() => {
+              <tr key={channel.channel.id} onClick={() => {
                 onChoose(channel);
               }}>
-                <TableDataCell>
+                <td>
                   { channel.channel.name }
-                </TableDataCell>
-                <TableDataCell>
+                </td>
+                <td>
                   { channel.cast_count_30d }
-                </TableDataCell>
-              </TableRow>
+                </td>
+              </tr>
             );
           })
         }
-      </TableBody>
-    </Table>;
+      </tbody>
+    </table>;
 
   return (
-    <Window className='window' style={{
+    <div style={{
       width: '115%',
       position: 'absolute',
       top: '-50px',
       left: '-15px',
       zIndex: 2,
     }} >
-      <WindowHeader className='window-title'>
+      <div>
         <span>Select channel</span>
 
-        <Button onClick={onClose}>
+        <button onClick={onClose}>
           <span className='close-icon' />
-        </Button>
-      </WindowHeader>
+        </button>
+      </div>
 
-      <WindowContent>
+      <div>
         <div style={{ display: 'flex' }}>
-          <TextInput
+          <input
+            type="text"
             onChange={(e) => {
               debounced(e.target.value);
             }}
             className="mb-3"
             placeholder="Search..."
-            fullWidth
           />
         </div>
 
@@ -115,12 +114,12 @@ export default function SelectChannel({
 
         {
           channels.length > 0 && (
-            <ScrollView style={{ height: '60vh' }}>
+            <div style={{ height: '60vh' }}>
               { channelsRows }
-            </ScrollView>
+            </div>
           )
         }
-      </WindowContent>
-    </Window>
+      </div>
+    </div>
   );
 }
