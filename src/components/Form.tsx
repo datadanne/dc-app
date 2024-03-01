@@ -156,7 +156,7 @@ export default function Form({
         />
       </div>
 
-      <p>You can now cast as @degen-confessions :)</p>
+      <p>You can now cast as @degenconfessions :)</p>
 
       <div className="w-full">
         <textarea
@@ -249,9 +249,9 @@ export default function Form({
                       Your cast was published successfully. View it on{" "}
                       <a
                         target="_blank"
-                        href="https://warpcast.com/degen-confessions"
+                        href="https://warpcast.com/degenconfessions"
                       >
-                        @degen-confessions
+                        @degenconfessions
                       </a>
                       .
                     </>
